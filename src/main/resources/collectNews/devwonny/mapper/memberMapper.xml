@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="collectNews.devwonny.mapper.MemberMapper">
+
+    <insert id="save" keyProperty="keyword_id">
+        insert into member (login_id, name, password)
+        values (#{loginId}, #{name}, #{password})
+    </insert>
+
+    <select id="findById" resultType="Member">
+        select member_id, login_id, name, password
+        from member
+        where member_id = #{memberId}
+    </select>
+
+    <select id="findByLoginId" resultType="Member">
+        select member_id, login_id, name, password
+        from member
+        where login_id = #{login_id}
+    </select>
+
+    <select id="findAll" resultType="Member">
+        select member_id, login_id, name, password from member
+    </select>
+
+
+</mapper>
