@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="collectNews.devwonny.mapper.SiteMapper">
+
+    <insert id="save" keyProperty="keyword_id">
+        insert into site (site_name, site_url, using_site)
+        values (#{siteName}, #{siteUrl}, #{usingSite})
+    </insert>
+
+    <update id="update">
+        update site
+        set site_name=#{updateParam.siteName},
+            site_url=#{updateParam.siteUrl},
+            using_site=#{updateParam.usingSite},
+        where site_id = #{siteId}
+    </update>
+
+    <select id="findById" resultType="Site">
+        select site_id ,site_name, site_url, using_site
+        from site
+        where site_id = #{siteId}
+    </select>
+
+    <select id="findByKeyword" resultType="Site">
+        select site_id ,site_name, site_url, using_site
+        from site
+        where site_name = #{siteName}
+    </select>
+
+    <select id="findAll" resultType="Site">
+        select site_id ,site_name, site_url, using_site from site
+    </select>
+
+</mapper>

@@ -36,6 +36,7 @@ public class MemberController {
     @ResponseBody
     @GetMapping("/all")
     public List<Member> showAllMemember(){
+
         return memberRepository.findAll();
     }
 

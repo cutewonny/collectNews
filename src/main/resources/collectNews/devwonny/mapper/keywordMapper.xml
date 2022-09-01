@@ -16,7 +16,7 @@
     </update>
 
     <select id="findById" resultType="Keyword">
-        select *
+        select keyword_id, keyword_name, using_keyword
         from keyword
         where keyword_id = #{keywordId}
     </select>

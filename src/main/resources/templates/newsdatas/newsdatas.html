@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container" style="max-width: 1000px">
+    <div class="py-5 text-center">
+        <h2>기사 목록</h2>
+    </div>
+
+<!--    <div class="row">-->
+<!--        <div class="col">-->
+<!--            <button class="btn btn-primary float-end"-->
+<!--                    onclick="location.href='addForm.html'"-->
+<!--                    th:onclick="|location.href='@{/keywords/add}'|"-->
+<!--                    type="button">키워드 등록</button>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <hr class="mr-sm-1">
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>인덱스 번호</th>
+                <th>키워드 번호</th>
+                <th>사이트 번호</th>
+                <th>기사 제목</th>
+                <th>기사 내용</th>
+                <th>기사 URL</th>
+                <th>생성 날짜</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${newsDatas}">
+                <td th:text="${item.newsDataCd}">1</td>
+                <td th:text="${item.keywordId}">1</td>
+                <td th:text="${item.siteId}">1</td>
+                <td th:text="${item.mediaTitle}">내달 3일부터 입국전 코로나19 검사 안한다…입국후 검사는 유지(종합)</td>
+                <td th:text="${item.mediaContent}">내·외국인은 코로나19 PCR(유전자증폭) 음성 확인서를 제출하지 않아도 된다. 이기일 중앙재난안전대책본부... 모든 입국자에게 적용돼 온 입국 전 코로나19 검사 의무가 폐지되는 것이다</td>
+                <td><a th:href="${item.mediaUrl}" th:text="${item.mediaUrl}">https://www.yna.co.kr/view/AKR20220831027752530?input=1195m</a></td>
+                <td th:text="${item.createDt}">Thu Sep 01 00:15:10 KST 2022</td>
+
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    onclick="location.href='/'"
+                    th:onclick="|location.href='@{/}'|"
+                    type="button">뒤로가기</button>
+        </div>
+    </div>
+
+</div> <!-- /container -->
+
+</body>
+</html>

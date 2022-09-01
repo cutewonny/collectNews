@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="collectNews.devwonny.mapper.NewsDataMapper">
+
+    <insert id="save" keyProperty="keyword_id">
+        insert into news_data (keyword_id, site_id, media_title, media_url, media_content, create_dt)
+        values (#{keywordId}, #{siteId}, #{mediaTitle},#{mediaUrl},#{mediaContent},NOW())
+    </insert>
+
+    <update id="update">
+        update news_data
+        set keyword_id=#{updateParam.keywordId},
+            site_id=#{updateParam.siteId},
+            media_title=#{updateParam.mediaTitle},
+            media_url=#{updateParam.mediaUrl},
+            media_content=#{updateParam.mediaContent},
+            create_dt=NOW(),
+        where news_data_cd = #{newsDataCd}
+    </update>
+
+    <select id="findById" resultType="NewsData">
+        select *
+        from news_data
+        where news_data_cd = #{newsDataCd}
+    </select>
+
+    <select id="findByKeyword" resultType="NewsData">
+        select keyword_id, keyword_name, using_keyword
+        from news_data
+        where keyword_id = #{keywordId}
+    </select>
+
+    <select id="findAll" resultType="NewsData">
+        select news_data_cd ,keyword_id, site_id, media_title, media_url, media_content, create_dt from news_data
+    </select>
+
+</mapper>

@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor //final, notnull 생성자 생성
 public class Member {
 
-    private Long Memberid;
+    private Long memberid;
 
     @NotEmpty
     @NotNull
