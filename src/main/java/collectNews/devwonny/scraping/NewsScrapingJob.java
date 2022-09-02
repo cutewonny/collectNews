@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.jsoup.nodes.Document;
@@ -62,13 +63,17 @@ public class NewsScrapingJob {
             }
 
             // 파싱한 데이터 저장하기
-
             for(NewsData target: targets){
+
+                NewsData savedTarget = new NewsData();
                 target.setKeywordId(keyword.getKeywordId());
                 target.setSiteId(site.getSiteId());
 
-                if(target!= null){
-                    newsDataRepository.save(target);
+                savedTarget = target;
+                log.info("savedTarget>>> {}",savedTarget);
+
+                if(savedTarget!= null){
+                    newsDataRepository.save(savedTarget);
                 }
 
             }
@@ -78,7 +83,8 @@ public class NewsScrapingJob {
 
     }
 
-    public List<Keyword> doWork() throws IOException {
+    @Scheduled(cron = "0 0 19 * * ?")
+    public void doWork() throws IOException {
 
         List<Keyword> keywords = keywordRepository.findAll().stream()
                 .filter(k->k.getUsingKeyword().booleanValue()==true)
@@ -100,15 +106,41 @@ public class NewsScrapingJob {
                 if(sites !=null){
                     for(Site site : sites){
                         log.info("scraping start:: site={}", site.getSiteName());
+
+                        List<NewsData> targets = null;
+
+                        //parsing site start
                         if(site.getSiteName().equals("naver")){
-                            parseNaver(keyword, site);
+                            targets = parseNaver(keyword, site);
+                        }else if(site.getSiteName().equals("daum")){
+                            targets = parseDaum(keyword, site);
+                        }
+
+                        if(targets!=null){
+                            //save date start
+                            for(NewsData target: targets){
+
+                                NewsData savedTarget = new NewsData();
+                                target.setKeywordId(keyword.getKeywordId());
+                                target.setSiteId(site.getSiteId());
+
+                                savedTarget = target;
+                                log.info("savedTarget>>> {}",savedTarget);
+
+                                if(savedTarget!= null){
+                                    newsDataRepository.save(savedTarget);
+                                }
+
+                            }//save data end
                         }
                     }
                 }
 
             }
         }
-        return keywords;
+
+
+//        return keywords;
     }
 
 

@@ -23,9 +23,9 @@ public class ScrapingController {
     private final NewsScrapingJob newsScrapingJob;
 
     @GetMapping
-    public List<Keyword> scraping() throws IOException {
+    public void scraping() throws IOException {
 
-        return newsScrapingJob.doWork();
+        newsScrapingJob.doWork();
     }
 
     @GetMapping("/test")
