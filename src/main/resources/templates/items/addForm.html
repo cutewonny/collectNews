@@ -22,6 +22,10 @@
         <h2>키워드 등록</h2>
     </div>
 
+<!--    <div th:if="${#fields.hasGlobalErrors()}">-->
+<!--        <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>-->
+<!--    </div>-->
+
     <form action="item.html" th:action th:object="${item}" method="post">
 
         <div th:if="${#fields.hasGlobalErrors()}">

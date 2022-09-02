@@ -6,6 +6,8 @@
     <insert id="save" keyProperty="keyword_id">
         insert into keyword (keyword_name, using_keyword)
         values (#{keywordName}, #{usingKeyword})
+        ON DUPLICATE KEY
+        UPDATE `keyword_name` = VALUES(keyword_name)
     </insert>
 
     <update id="update">

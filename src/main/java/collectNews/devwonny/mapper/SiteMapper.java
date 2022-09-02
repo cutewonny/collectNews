@@ -19,4 +19,6 @@ public interface SiteMapper {
     Optional<Site> findByName(String siteName);
 
     List<Site> findAll();
+
+    List<Site> findByUsingSite(Boolean check);
 }

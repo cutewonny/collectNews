@@ -32,4 +32,10 @@
         select site_id ,site_name, site_url, using_site from site
     </select>
 
+    <select id="findByUsingSite" resultType="Site">
+        select site_id ,site_name, site_url, using_site
+        from site
+        where using_site = #{check}
+    </select>
+
 </mapper>

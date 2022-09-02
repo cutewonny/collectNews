@@ -12,7 +12,7 @@ import java.util.Optional;
 @Mapper
 public interface KeywordMapper {
 
-    void save(Keyword item);
+    Long save(Keyword item);
 
     void update(@Param("keywordId") Long keywordId, @Param("updateParam") KeywordUpdateDTO updateParam);
 

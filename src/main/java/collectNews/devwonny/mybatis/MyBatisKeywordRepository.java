@@ -21,8 +21,10 @@ public class MyBatisKeywordRepository implements KeywordRepository {
 
     @Override
     public Keyword save(Keyword item) {
-        log.warn("KeywordMapper class={}>>>>  item>>>>{}>>>", keywordMapper.getClass(), item);
-        keywordMapper.save(item);
+//        log.warn("KeywordMapper class={}>>>>  item>>>>{}>>>", keywordMapper.getClass(), item);
+        long keywordId = keywordMapper.save(item);
+//        log.info("MyBatisKeywordRepository keywordId>>>>>> {}",keywordId);
+//        item.setKeywordId(keywordId);
         return item;
     }
 

@@ -16,5 +16,7 @@ public interface SiteRepository {
 
     Optional<Site> findByName(String siteName);
 
+    List<Site> findByUsingSite(Boolean check);
+
     List<Site> findAll();
 }

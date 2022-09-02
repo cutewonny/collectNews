@@ -42,6 +42,11 @@ public class MyBatisSiteRepository implements SiteRepository {
     }
 
     @Override
+    public List<Site> findByUsingSite(Boolean check) {
+        return siteMapper.findByUsingSite(check);
+    }
+
+    @Override
     public List<Site> findAll() {
 
         return siteMapper.findAll();
