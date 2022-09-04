@@ -2,6 +2,7 @@ package collectNews.devwonny.web.newsData;
 
 import collectNews.devwonny.domain.newsData.NewsData;
 import collectNews.devwonny.domain.newsData.NewsDataRepository;
+import collectNews.devwonny.domain.newsData.NewsDataResult;
 import collectNews.devwonny.service.NewsDataService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ public class newsDataController {
 
     @GetMapping
     public String newsDatas(Model model){
-        List<NewsData> newsDatas = newsDataService.findAll();
+        List<NewsDataResult> newsDatas = newsDataService.findAll();
         model.addAttribute("newsDatas", newsDatas);
         return "newsdatas/newsdatas";
     }

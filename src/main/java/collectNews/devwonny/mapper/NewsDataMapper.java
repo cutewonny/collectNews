@@ -1,6 +1,7 @@
 package collectNews.devwonny.mapper;
 
 import collectNews.devwonny.domain.newsData.NewsData;
+import collectNews.devwonny.domain.newsData.NewsDataResult;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,6 +19,6 @@ public interface NewsDataMapper {
 
     Optional<NewsData> findByKeywordId(String keywordId);
 
-    List<NewsData> findAll();
+    List<NewsDataResult> findAll();
 
 }

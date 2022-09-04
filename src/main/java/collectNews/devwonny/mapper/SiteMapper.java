@@ -21,4 +21,6 @@ public interface SiteMapper {
     List<Site> findAll();
 
     List<Site> findByUsingSite(Boolean check);
+
+    int delete(long siteId);
 }

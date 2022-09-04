@@ -19,4 +19,6 @@ public interface SiteRepository {
     List<Site> findByUsingSite(Boolean check);
 
     List<Site> findAll();
+
+    int delete(long siteId);
 }

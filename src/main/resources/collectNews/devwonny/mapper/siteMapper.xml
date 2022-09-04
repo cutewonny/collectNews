@@ -6,13 +6,15 @@
     <insert id="save" keyProperty="keyword_id">
         insert into site (site_name, site_url, using_site)
         values (#{siteName}, #{siteUrl}, #{usingSite})
+        ON DUPLICATE KEY
+        UPDATE `site_name` = VALUES(siteName)
     </insert>
 
     <update id="update">
         update site
         set site_name=#{updateParam.siteName},
             site_url=#{updateParam.siteUrl},
-            using_site=#{updateParam.usingSite},
+            using_site=#{updateParam.usingSite}
         where site_id = #{siteId}
     </update>
 
@@ -22,7 +24,7 @@
         where site_id = #{siteId}
     </select>
 
-    <select id="findByKeyword" resultType="Site">
+    <select id="findByName" resultType="Site">
         select site_id ,site_name, site_url, using_site
         from site
         where site_name = #{siteName}
@@ -37,5 +39,9 @@
         from site
         where using_site = #{check}
     </select>
+
+    <delete id="delete">
+        delete from site where site_id = #{siteId}
+    </delete>
 
 </mapper>

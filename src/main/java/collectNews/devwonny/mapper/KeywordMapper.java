@@ -14,12 +14,14 @@ public interface KeywordMapper {
 
     Long save(Keyword item);
 
-    void update(@Param("keywordId") Long keywordId, @Param("updateParam") KeywordUpdateDTO updateParam);
+    void update(@Param("keywordId") Long keywordId, @Param("updateParam") Keyword updateParam);
 
     Optional<Keyword> findById(Long keywordId);
 
     Optional<Keyword> findByKeyword(String keywordName);
 
     List<Keyword> findAll();
+
+    int delete(Long itemId);
 
 }

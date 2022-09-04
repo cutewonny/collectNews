@@ -11,11 +11,13 @@ public interface KeywordService {
 
     Keyword save(Keyword item);
 
-    void update(Long keywordId, KeywordUpdateDTO updateParam);
+    void update(Long keywordId, Keyword updateParam);
 
     Optional<Keyword> findById(Long keywordId);
 
     Optional<Keyword> findByKeyword(String keywordName);
 
     List<Keyword> findAll();
+
+    int delete(Long itemId);
 }

@@ -17,4 +17,6 @@ public interface SiteService {
     Optional<Site> findByName(String siteName);
 
     List<Site> findAll();
+
+    int delete(long siteId);
 }

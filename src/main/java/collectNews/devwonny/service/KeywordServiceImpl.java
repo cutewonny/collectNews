@@ -23,7 +23,7 @@ public class KeywordServiceImpl implements KeywordService {
     }
 
     @Override
-    public void update(Long itemId, KeywordUpdateDTO updateParam) {
+    public void update(Long itemId, Keyword updateParam) {
 
         keywordRepository.update(itemId, updateParam);
     }
@@ -44,6 +44,10 @@ public class KeywordServiceImpl implements KeywordService {
     public List<Keyword> findAll() {
 
         return keywordRepository.findAll();
+    }
+
+    public int delete(Long itemId){
+        return keywordRepository.delete(itemId);
     }
 
 }

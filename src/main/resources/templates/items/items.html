@@ -33,7 +33,7 @@
             </thead>
             <tbody>
             <tr th:each="item : ${items}">
-                <td><a href="item.html" th:href="@{/items/{keywordId}(keywordId=${item.keywordId})}" th:text="${item.keywordId}">2</a></td>
+                <td><a href="item.html" th:href="@{/keywords/{keywordId}(keywordId=${item.keywordId})}" th:text="${item.keywordId}">2</a></td>
                 <td th:text="${item.keywordName}">키워드</td>
                 <td th:text="${item.usingKeyword}">false</td>
 
@@ -46,7 +46,7 @@
             <button class="w-100 btn btn-secondary btn-lg"
                     onclick="location.href='/'"
                     th:onclick="|location.href='@{/}'|"
-                    type="button">뒤로가기</button>
+                    type="button">설정 페이지 가기</button>
         </div>
     </div>
 

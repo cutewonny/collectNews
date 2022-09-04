@@ -29,7 +29,7 @@ public class MyBatisKeywordRepository implements KeywordRepository {
     }
 
     @Override
-    public void update(Long keywordId, KeywordUpdateDTO updateParam) {
+    public void update(Long keywordId, Keyword updateParam) {
 
         keywordMapper.update(keywordId, updateParam);
     }
@@ -51,4 +51,11 @@ public class MyBatisKeywordRepository implements KeywordRepository {
 
         return keywordMapper.findAll();
     }
+
+    @Override
+    public int delete(Long itemId) {
+        return keywordMapper.delete(itemId);
+    }
+
+
 }

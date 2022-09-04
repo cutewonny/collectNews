@@ -40,4 +40,9 @@ public class SiteServiceImpl implements SiteService{
     public List<Site> findAll() {
         return siteRepository.findAll();
     }
+
+    @Override
+    public int delete(long siteId) {
+        return siteRepository.delete(siteId);
+    }
 }

@@ -13,7 +13,7 @@
     <update id="update">
         update keyword
         set keyword_name=#{updateParam.keywordName},
-            using_keyword=#{updateParam.usingKeyword},
+            using_keyword=#{updateParam.usingKeyword}
         where keyword_id = #{keywordId}
     </update>
 
@@ -32,5 +32,9 @@
     <select id="findAll" resultType="Keyword">
         select keyword_id, keyword_name, using_keyword from keyword
     </select>
+
+    <delete id="delete">
+        delete from keyword where keyword_id = #{keywordId}
+    </delete>
 
 </mapper>

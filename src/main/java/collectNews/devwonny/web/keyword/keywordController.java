@@ -1,7 +1,7 @@
 package collectNews.devwonny.web.keyword;
 
 import collectNews.devwonny.domain.keyword.Keyword;
-import collectNews.devwonny.domain.keyword.KeywordRepository;
+import collectNews.devwonny.domain.keyword.KeywordUpdateDTO;
 import collectNews.devwonny.scraping.NewsScrapingJob;
 import collectNews.devwonny.service.KeywordService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +38,65 @@ public class keywordController {
         return "items/items";
     }
 
+
+    @GetMapping("/{itemId}")
+    public String item(@PathVariable long itemId, Model model) {
+        //로그인 여부 체크
+        Optional<Keyword> item = keywordService.findById(itemId);
+        log.info("item>>>>> {}",item);
+        model.addAttribute("item", item.get());
+        return "items/item";
+    }
+
+//    @RequestMapping(value = "/{itemId}", method = RequestMethod.DELETE)
+    @DeleteMapping("/{itemId}")
+    public String delete(@PathVariable("itemId") long itemId, Model model){
+
+        int wasOk = keywordService.delete(itemId);
+        log.info("delete>>>>>>> itemId>>{}",itemId);
+        if (wasOk!=1) {
+            return "error/error";
+        }
+        return "redirect:/keywords";
+    }
+
+
+    @PostMapping("/delete")
+    public String deletePost(@RequestParam final Long id) {
+        keywordService.delete(id);
+        return "redirect:/keywords";
+    }
+
+    @GetMapping("/{itemId}/edit")
+    public String editForm(@PathVariable Long itemId, Model model) {
+        Optional<Keyword> item = keywordService.findById(itemId);
+        model.addAttribute("item", item.get());
+        return "items/editForm";
+    }
+
+    @PostMapping("/{itemId}/edit")
+    public String edit(@PathVariable Long itemId, @Validated @ModelAttribute("item") Keyword form, BindingResult bindingResult) {
+
+        String keyName = form.getKeywordName().trim();
+        if(keyName.isBlank()){
+            bindingResult.reject("keywordNameEmpty", "키워드 이름이 공백입니다.");
+            return "items/editForm";
+        }
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
+            return "items/editForm";
+        }
+
+        Keyword itemParam = new Keyword();
+        itemParam.setKeywordName(keyName);
+        itemParam.setUsingKeyword(form.getUsingKeyword());
+
+        keywordService.update(itemId, itemParam);
+        return "redirect:/keywords/{itemId}";
+    }
+
+
     @GetMapping("/add")
     public String addForm(Model model) {
         model.addAttribute("item", new Keyword());
@@ -46,13 +106,12 @@ public class keywordController {
     @PostMapping("/add")
     public String addItem(@Validated @ModelAttribute("item") Keyword form, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException {
 
-//        //특정 필드 예외가 아닌 전체 예외
-//        if (form.getPrice() != null && form.getQuantity() != null) {
-//            int resultPrice = form.getPrice() * form.getQuantity();
-//            if (resultPrice < 10000) {
-//                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
-//            }
-//        }
+        String keyName = form.getKeywordName().trim();
+        if(keyName.isBlank()){
+            bindingResult.reject("keywordNameEmpty", "키워드 이름이 공백입니다.");
+            return "items/addForm";
+        }
+
 
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);

@@ -26,6 +26,7 @@ public class MyBatisSiteRepository implements SiteRepository {
 
     @Override
     public void update(Long siteId, Site updateParam) {
+        log.info("siteId>>>{}, updateParam={}",siteId, updateParam);
         siteMapper.update(siteId, updateParam);
     }
 
@@ -50,5 +51,10 @@ public class MyBatisSiteRepository implements SiteRepository {
     public List<Site> findAll() {
 
         return siteMapper.findAll();
+    }
+
+    @Override
+    public int delete(long siteId) {
+        return siteMapper.delete(siteId);
     }
 }

@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="py-5 text-center">
+        <h2>사이트 수정</h2>
+    </div>
+
+    <form action="site.html" th:action th:object="${item}" method="post">
+
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
+        </div>
+
+        <div>
+            <label for="siteId">사이트 ID</label>
+            <input type="number" id="siteId" th:value="${item.siteId}" class="form-control" readonly>
+        </div>
+        <div>
+            <label for="siteName" >사이트 이름</label>
+            <input type="text" id="siteName" th:field="*{siteName}" th:errorclass="field-error" class="form-control" placeholder="사이트명 입력하세요">
+            <div class="field-error" th:errors="*{siteName}">
+                사이트 이름 오류
+            </div>
+        </div>
+        <div>
+            <label for="siteUrl" >사이트 URL</label>
+            <input type="text" id="siteUrl" th:field="*{siteUrl}" th:errorclass="field-error" class="form-control" placeholder="URL 입력하세요">
+            <div class="field-error" th:errors="*{siteUrl}">
+                URL 오류
+            </div>
+        </div>
+        <div>
+            <label for="usingSite">사이트 사용 여부</label>
+            <input type="checkbox" id="usingSite" th:field="*{usingSite}"/>
+        </div>
+
+
+        <hr class="my-4">
+
+        <div class="row">
+            <div class="col">
+                <button class="w-100 btn btn-primary btn-lg" type="submit">저장</button>
+            </div>
+            <div class="col">
+<!--                <button class="w-100 btn btn-primary btn-lg" type="button" onclick="doMethod('DELETE')" value="DELETE">삭제</button>-->
+
+<!--                <button class="w-100 btn btn-primary btn-lg" type="button" th:onclick="|location.href='@{/keywords/delete}'|">삭제</button>-->
+                <button type="button" class="w-100 btn btn-danger btn-lg" onclick="deletePost();">삭제하기</button>
+
+            </div>
+            <div class="col">
+                <button class="w-100 btn btn-secondary btn-lg"
+                        onclick="location.href='site.html'"
+                        th:onclick="|location.href='@{/site}'|"
+                        type="button">취소</button>
+            </div>
+        </div>
+
+    </form>
+
+</div> <!-- /container -->
+</body>
+</html>
+
+<script th:inline="javascript">
+    // alert("start");
+
+    let itemId2 = [[${itemId}]];
+    console.log("itemId2>>> ",itemId2);
+
+
+    function doMethod(method) {
+        $.ajax({
+            type: method,
+            url: "/keywords/"+itemId2,
+            success: function(data) {
+                alert("data>>> ",data);
+                // window.location.href = '/keywords';
+                window.location.assign("/keywords");
+            },
+        });
+    }
+
+
+    // 게시글 삭제
+    function deletePost() {
+        const id = [[ ${item.siteId} ]];
+        if ( !confirm(id + "번 게시글을 삭제할까요?") ) {
+            return false;
+        }
+
+        const formHtml = `
+                    <form id="deleteForm" action="/site/delete" method="post">
+                        <input type="hidden" id="id" name="id" value="${id}" />
+                    </form>
+                `;
+        const doc = new DOMParser().parseFromString(formHtml, 'text/html');
+        const form = doc.body.firstChild;
+        document.body.append(form);
+        document.getElementById('deleteForm').submit();
+    }
+</script>

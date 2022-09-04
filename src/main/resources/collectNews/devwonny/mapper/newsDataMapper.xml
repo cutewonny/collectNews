@@ -31,8 +31,14 @@
         where keyword_id = #{keywordId}
     </select>
 
-    <select id="findAll" resultType="NewsData">
-        select news_data_cd ,keyword_id, site_id, media_title, media_url, media_content, create_dt from news_data
+    <select id="findAll" resultType="NewsDataResult">
+        select news.news_data_cd ,news.keyword_id, news.site_id, news.media_title, news.media_url, news.media_content, news.create_dt, k.keyword_name, s.site_name
+        from news_data news
+                 LEFT JOIN collectNews.keyword k
+                           on (news.keyword_id = k.keyword_id)
+                 LEFT JOIN collectNews.site s
+                           on (news.site_id = s.site_id)
+        order by news_data_cd desc;
     </select>
 
 </mapper>

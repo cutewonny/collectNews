@@ -2,6 +2,7 @@ package collectNews.devwonny.service;
 
 import collectNews.devwonny.domain.newsData.NewsData;
 import collectNews.devwonny.domain.newsData.NewsDataRepository;
+import collectNews.devwonny.domain.newsData.NewsDataResult;
 import collectNews.devwonny.mapper.NewsDataMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class NewsDataServiceImpl implements NewsDataService{
     }
 
     @Override
-    public List<NewsData> findAll() {
+    public List<NewsDataResult> findAll() {
         return newsDataRepository.findAll();
     }
 }

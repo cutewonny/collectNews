@@ -2,6 +2,7 @@ package collectNews.devwonny.mybatis;
 
 import collectNews.devwonny.domain.newsData.NewsData;
 import collectNews.devwonny.domain.newsData.NewsDataRepository;
+import collectNews.devwonny.domain.newsData.NewsDataResult;
 import collectNews.devwonny.mapper.NewsDataMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +41,7 @@ public class MyBatisNewsDataRepository implements NewsDataRepository {
     }
 
     @Override
-    public List<NewsData> findAll() {
+    public List<NewsDataResult> findAll() {
 
         return newsDataMapper.findAll();
     }

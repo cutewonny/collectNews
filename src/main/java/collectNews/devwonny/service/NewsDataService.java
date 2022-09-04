@@ -1,6 +1,7 @@
 package collectNews.devwonny.service;
 
 import collectNews.devwonny.domain.newsData.NewsData;
+import collectNews.devwonny.domain.newsData.NewsDataResult;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,5 +16,5 @@ public interface NewsDataService {
 
     Optional<NewsData> findByKeywordId(String keywordId);
 
-    List<NewsData> findAll();
+    List<NewsDataResult> findAll();
 }

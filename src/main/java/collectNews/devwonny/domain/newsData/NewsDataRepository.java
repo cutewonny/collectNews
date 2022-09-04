@@ -16,6 +16,6 @@ public interface NewsDataRepository {
 
     Optional<NewsData> findByKeywordId(String keywordId);
 
-    List<NewsData> findAll();
+    List<NewsDataResult> findAll();
 
 }
